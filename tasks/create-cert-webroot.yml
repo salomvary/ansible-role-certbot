@@ -5,7 +5,7 @@
 
 - name: Check if certificate already exists.
   stat:
-    path: /etc/letsencrypt/live/{{ cert_item_name }}/cert.pem
+    path: "{{ certbot_etc }}/live/{{ cert_item_name }}/cert.pem"
   register: letsencrypt_cert
 
 - name: Create webroot directory if it doesn't exist yet

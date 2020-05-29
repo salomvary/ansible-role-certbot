@@ -103,8 +103,8 @@
         template: "{{ nginx_vhost_template }}"
         filename: "certbot_test.conf"
         extra_parameters: |
-          ssl_certificate     /etc/letsencrypt/live/certbot-test.servercheck.in/fullchain.pem;
-          ssl_certificate_key /etc/letsencrypt/live/certbot-test.servercheck.in/privkey.pem;
+          ssl_certificate     {{ certbot_etc }}/live/certbot-test.servercheck.in/fullchain.pem;
+          ssl_certificate_key {{ certbot_etc }}/live/certbot-test.servercheck.in/privkey.pem;
           ssl_protocols       TLSv1.1 TLSv1.2;
           ssl_ciphers         HIGH:!aNULL:!MD5;
 

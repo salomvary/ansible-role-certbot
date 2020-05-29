@@ -5,12 +5,12 @@
 
 - name: Check if certificate already exists.
   stat:
-    path: /etc/letsencrypt/live/{{ cert_item_name }}/cert.pem
+    path: "{{ certbot_etc }}/live/{{ cert_item_name }}/cert.pem"
   register: letsencrypt_cert
 
 - name: Ensure pre and post hook folders exist.
   file:
-    path: /etc/letsencrypt/renewal-hooks/{{ item }}
+    path: "{{ certbot_etc }}/renewal-hooks/{{ item }}"
     state: directory
     mode: 0755
     owner: root
@@ -22,7 +22,7 @@
 - name: Create pre hook to stop services.
   template:
     src: stop_services.j2
-    dest: /etc/letsencrypt/renewal-hooks/pre/stop_services
+    dest: "{{ certbot_etc }}/renewal-hooks/pre/stop_services"
     owner: root
     group: root
     mode: 0750
@@ -33,7 +33,7 @@
 - name: Create post hook to start services.
   template:
     src: start_services.j2
-    dest: /etc/letsencrypt/renewal-hooks/post/start_services
+    dest: "{{ certbot_etc }}/renewal-hooks/post/start_services"
     owner: root
     group: root
     mode: 0750

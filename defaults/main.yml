@@ -11,6 +11,7 @@ certbot_hsts: false
 
 
 # Parameters used when creating new Certbot certs.
+certbot_etc: /etc/letsencrypt
 certbot_create_if_missing: false
 certbot_create_method: standalone
 certbot_create_extra_args: ""
@@ -43,10 +44,10 @@ certbot_create_command: >-
   --cert-name {{ cert_item_name }}
   -d {{ cert_item.domains | join(',') }}
   {{ '--expand' if certbot_expand else '' }}
-  {{ '--pre-hook /etc/letsencrypt/renewal-hooks/pre/stop_services'
+  {{ '--pre-hook {{ certbot_etc }}/renewal-hooks/pre/stop_services'
     if certbot_create_standalone_stop_services and certbot_create_method == 'standalone'
   else '' }}
-  {{ '--post-hook /etc/letsencrypt/renewal-hooks/post/start_services'
+  {{ '--post-hook {{ certbot_etc }}/renewal-hooks/post/start_services'
     if certbot_create_standalone_stop_services and certbot_create_method == 'standalone'
   else '' }}
   {{ "--deploy-hook '" ~ cert_item.deploy_hook ~ "'"
