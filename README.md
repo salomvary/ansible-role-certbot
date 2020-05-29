@@ -24,6 +24,8 @@ Controls how Certbot is installed. Available options are 'package', 'snap', and 
 
 By default, this role configures a cron job to run under the provided user account at the given hour and minute, every day. The defaults run `certbot renew` (or `certbot-auto renew`) via cron every day at 03:30:00 by the user you use in your Ansible playbook. It's preferred that you set a custom user/hour/minute so the renewal is during a low-traffic period and done by a non-root user account.
 
+Use the `certbot_auto_renew_cron_file` to override [which cron file](https://docs.ansible.com/ansible/latest/modules/cron_module.html#parameter-cron_file) gets updated. Defaults to empty, which means using the user's crontab. 
+
 ### Automatic Certificate Generation
 
 Currently the `standalone` and `webroot` method are supported for generating new certificates using this role.
