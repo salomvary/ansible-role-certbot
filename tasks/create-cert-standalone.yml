@@ -13,8 +13,8 @@
     path: "{{ certbot_etc }}/renewal-hooks/{{ item }}"
     state: directory
     mode: 0755
-    owner: root
-    group: root
+    owner: "{{ certbot_auto_renew_user }}"
+    group: "{{ certbot_auto_renew_group }}"
   with_items:
     - pre
     - post
@@ -23,8 +23,8 @@
   template:
     src: stop_services.j2
     dest: "{{ certbot_etc }}/renewal-hooks/pre/stop_services"
-    owner: root
-    group: root
+    owner: "{{ certbot_auto_renew_user }}"
+    group: "{{ certbot_auto_renew_group }}"
     mode: 0750
   when:
     - certbot_create_standalone_stop_services is defined
@@ -34,8 +34,8 @@
   template:
     src: start_services.j2
     dest: "{{ certbot_etc }}/renewal-hooks/post/start_services"
-    owner: root
-    group: root
+    owner: "{{ certbot_auto_renew_user }}"
+    group: "{{ certbot_auto_renew_group }}"
     mode: 0750
   when:
     - certbot_create_standalone_stop_services is defined
